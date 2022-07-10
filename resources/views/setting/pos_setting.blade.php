@@ -55,6 +55,10 @@
                                         <input type="text" name="paypal_signature" class="form-control" value="{{env('PAYPAL_SANDBOX_API_SECRET')}}" />
                                     </div>
                                     <div class="form-group">
+                                        <label>IFU</label>
+                                        <input type="text" name="ifu" class="form-control" value="{{$lims_pos_setting_data->ifu}}" />
+                                    </div>
+                                    <div class="form-group">
                                         <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
                                     </div>
                                 </div>
@@ -81,6 +85,10 @@
                                     <div class="form-group">
                                         <label>Paypal Pro API Password</label>
                                         <input type="password" name="paypal_password" class="form-control" value="{{env('PAYPAL_SANDBOX_API_PASSWORD')}}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Normalization API token</label>
+                                        <input type="text" name="normalization_token" class="form-control" value="{{ $lims_pos_setting_data->normalization_token }}" />
                                     </div>
                                     <div class="form-group">
                                         @if($lims_pos_setting_data && $lims_pos_setting_data->keybord_active)

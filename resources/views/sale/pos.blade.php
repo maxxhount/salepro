@@ -753,7 +753,7 @@
             <audio id="mysoundclip2" preload="auto">
                 <source src="{{url('public/beep/beep-07.mp3')}}"></source>
             </audio>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="card">
                     <div class="card-body" style="padding-bottom: 0">
                         {!! Form::open(['route' => 'sales.store', 'method' => 'post', 'files' => true, 'class' => 'payment-form']) !!}
@@ -860,14 +860,15 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="table-responsive transaction-list">
-                                        <table id="myTable" class="table table-hover table-striped order-list table-fixed">
+                                        <table id="myTable" class="table table-hover table-striped order-list">
                                             <thead>
                                                 <tr>
-                                                    <th class="col-sm-2">{{trans('file.product')}}</th>
-                                                    <th class="col-sm-2">{{trans('file.Batch No')}}</th>
+                                                    <th class="col-sm-3">{{trans('file.product')}}</th>
+                                                    <th class="col-sm-1">{{trans('file.Batch No')}}</th>
                                                     <th class="col-sm-2">{{trans('file.Price')}}</th>
                                                     <th class="col-sm-3">{{trans('file.Quantity')}}</th>
-                                                    <th class="col-sm-3">{{trans('file.Subtotal')}}</th>
+                                                    <th class="col-sm-2">{{trans('file.Subtotal')}}</th>
+                                                    <th class="col-sm-1"></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tbody-id">
@@ -1049,8 +1050,10 @@
                                             <textarea rows="3" class="form-control" name="staff_note"></textarea>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="normalization" value="" id="normalization">
                                     <div class="mt-3">
                                         <button id="submit-btn" type="button" class="btn btn-primary">{{trans('file.submit')}}</button>
+                                        <button id="normalize-btn" type="button" class="btn btn-info">{{trans('file.Normalize')}}</button>
                                     </div>
                                 </div>
                                 <div class="col-md-2 qc" data-initial="1">
@@ -1157,7 +1160,7 @@
 
             {!! Form::close() !!}
             <!-- product list -->
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <!-- navbar-->
                 <header>
                     <nav class="navbar">
@@ -2649,6 +2652,13 @@ $("#draft-btn").on("click",function(){
 });
 
 $("#submit-btn").on("click", function() {
+    $("#normalization").val("");
+    $('.payment-form').submit();
+});
+
+//normalization after save data
+$("#normalize-btn").on("click", function() {
+    $("#normalization").val(true);
     $('.payment-form').submit();
 });
 
@@ -2862,12 +2872,12 @@ function addNewProduct(data){
     var cols = '';
     temp_unit_name = (data[6]).split(',');
     pos = product_code.indexOf(data[1]);
-    cols += '<td class="col-sm-2 product-title"><button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"><strong><span class="product-name">' + data[0] + '</span></strong></button><br>' + data[1] + '<p>In Stock: <span class="in-stock"></span></p></td>';
+    cols += '<td class="col-sm-3 text-break product-title"><button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"><strong><span class="product-name">' + data[0] + '</span></strong></button><br>' + data[1] + '<p>In Stock: <span class="in-stock"></span></p></td>';
     if(data[12]) {
-        cols += '<td class="col-sm-2"><input type="text" class="form-control batch-no" value="'+batch_no[pos]+'" required/> <input type="hidden" class="product-batch-id" name="product_batch_id[]" value="'+product_batch_id[pos]+'"/> </td>';
+        cols += '<td class="col-sm-1"><input type="text" class="form-control batch-no" value="'+batch_no[pos]+'" required/> <input type="hidden" class="product-batch-id" name="product_batch_id[]" value="'+product_batch_id[pos]+'"/> </td>';
     }
     else {
-        cols += '<td class="col-sm-2"><input type="text" class="form-control batch-no" disabled/> <input type="hidden" class="product-batch-id" name="product_batch_id[]"/> </td>';
+        cols += '<td class="col-sm-1"><input type="text" class="form-control batch-no" disabled/> <input type="hidden" class="product-batch-id" name="product_batch_id[]"/> </td>';
     }
     cols += '<td class="col-sm-2 product-price"></td>';
     cols += '<td class="col-sm-3"><div class="input-group"><span class="input-group-btn"><button type="button" class="btn btn-default minus"><span class="dripicons-minus"></span></button></span><input type="text" name="qty[]" class="form-control qty numkey input-number" step="any" required><span class="input-group-btn"><button type="button" class="btn btn-default plus"><span class="dripicons-plus"></span></button></span></div></td>';

@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	'dashboard' => 'Dashboard',
 	'language' => 'Language',
@@ -637,5 +637,11 @@ return [
 	"Switch Theme" => "Switch Theme",
 	"Documentation" => "Documentation",
 	"Product Expiry Report" => "Product Expiry Report",
+
+    "Normalize" => "Normalize",
+    "Code MECeF" => "Code MECeF",
+    "MECeF Counters" => "MECeF Counters",
+    "MECeF NIM" => "MECeF NIM",
+    "MECeF Hour" => "MECeF Hour",
 ];
 ?>

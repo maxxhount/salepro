@@ -69,7 +69,7 @@
                 content: ''; display: block;
                 page-break-after: always;
                 page-break-inside: avoid;
-                page-break-before: avoid;        
+                page-break-before: avoid;
             }
         }
     </style>
@@ -91,15 +91,15 @@
         </table>
         <br>
     </div>
-        
+
     <div id="receipt-data">
         <div class="centered">
             @if($general_setting->site_logo)
                 <img src="{{url('public/logo', $general_setting->site_logo)}}" height="42" width="50" style="margin:10px 0;filter: brightness(0);">
             @endif
-            
+
             <h2>{{$lims_biller_data->company_name}}</h2>
-            
+
             <p>{{trans('file.Address')}}: {{$lims_warehouse_data->address}}
                 <br>{{trans('file.Phone Number')}}: {{$lims_warehouse_data->phone}}
             </p>
@@ -112,7 +112,7 @@
             <tbody>
                 <?php $total_product_tax = 0;?>
                 @foreach($lims_product_sale_data as $key => $product_sale_data)
-                <?php 
+                <?php
                     $lims_product_data = \App\Product::find($product_sale_data->product_id);
                     if($product_sale_data->variant_id) {
                         $variant_data = \App\Variant::find($product_sale_data->variant_id);
@@ -142,7 +142,7 @@
                     <td style="text-align:right;vertical-align:bottom">{{number_format((float)$product_sale_data->total, 2, '.', '')}}</td>
                 </tr>
                 @endforeach
-            
+
             <!-- <tfoot> -->
                 <tr>
                     <th colspan="2" style="text-align:left">{{trans('file.Total')}}</th>
@@ -208,16 +208,36 @@
                     <td style="padding: 5px;width:30%">{{trans('file.Paid By')}}: {{$payment_data->paying_method}}</td>
                     <td style="padding: 5px;width:40%">{{trans('file.Amount')}}: {{number_format((float)$payment_data->amount, 2, '.', '')}}</td>
                     <td style="padding: 5px;width:30%">{{trans('file.Change')}}: {{number_format((float)$payment_data->change, 2, '.', '')}}</td>
-                </tr>                
+                </tr>
                 @endforeach
                 <tr><td class="centered" colspan="3">{{trans('file.Thank you for shopping with us. Please come again')}}</td></tr>
-                <tr>
-                    <td class="centered" colspan="3">
-                    <?php echo '<img style="margin-top:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG($lims_sale_data->reference_no, 'C128') . '" width="300" alt="barcode"   />';?>
-                    <br>
-                    <?php echo '<img style="margin-top:10px;" src="data:image/png;base64,' . DNS2D::getBarcodePNG($lims_sale_data->reference_no, 'QRCODE') . '" alt="barcode"   />';?>    
-                    </td>
-                </tr>
+                @if ($lims_sale_data->normalization_status == true)
+                    <tr>
+                        <td colspan="3" style="text-align:center">
+                            {{trans('file.Code MECeF')}} <br>
+                            <span class="" style="font-weight: bold">{{$lims_sale_data->normalization_code}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left">{{trans('file.MECeF NIM')}}</td>
+                        <td style="text-align:right"><span style="font-weight: bold">{{$lims_sale_data->nim_code}}</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left">{{trans('file.MECeF counters')}}</td>
+                        <td style="text-align:right"><span style="font-weight: bold">{{$lims_sale_data->normalization_counters}}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">{{trans('file.MECeF Hour')}}</td>
+                        <td colspan="2" style="text-align:right"><span style="font-weight: bold">{{$lims_sale_data->normalization_date}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="centered" colspan="3">
+                        {{-- <?php //echo '<img style="margin-top:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG($lims_sale_data->reference_no, 'C128') . '" width="300" alt="barcode"   />';?>
+                        <br> --}}
+                        <?php echo '<img style="margin-top:10px;" src="data:image/png;base64,' . DNS2D::getBarcodePNG($lims_sale_data->qr_code, 'QRCODE') . '" alt="barcode"   />';?>
+                        </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
         <!-- <div class="centered" style="margin:30px 0 50px">
@@ -229,7 +249,7 @@
 
 <script type="text/javascript">
     localStorage.clear();
-    function auto_print() {     
+    function auto_print() {
         window.print()
     }
     setTimeout(auto_print, 1000);
