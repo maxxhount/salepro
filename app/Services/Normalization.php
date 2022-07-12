@@ -19,7 +19,7 @@ class Normalization
 
     public function normalize()
     {
-        $this->token = PosSetting::where('normalization_token', '!=', null)->first()->normalization_token ?? "";
+        $this->token = PosSetting::get()->last()->normalization_token ?? "";
         try {
             $response = Http::withToken($this->token)->post(env("NORM_BASE_URL").'/api/invoice', $this->mapData());
 
@@ -95,7 +95,7 @@ class Normalization
 
         return $payments->map(function($payment){
             return [
-                "name" => /* $payment->paying_method */"ESPECES",
+                "name" => /* $payment->paying_method */ $this->getPaymentName($payment->paying_method) /* "ESPECES" */,
                 "amount" => $payment->amount,
             ];
         });
@@ -128,6 +128,24 @@ class Normalization
     gerer les moyens de payements
 
     */
+
+    public function getPaymentName(string $name)
+    {
+        $api_name = '';
+        switch ($name) {
+            case 'Cheque':
+                $api_name = 'CHEQUES';
+                break;
+            case 'Credit Card':
+                $api_name = 'CREDIT';
+                break;
+
+            default:
+                $api_name = 'AUTRE';
+                break;
+        }
+        return $api_name;
+    }
 
 
     public function updateSale($response)

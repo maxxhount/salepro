@@ -776,7 +776,10 @@ class SaleController extends Controller
         if($sale){
             $norm = new Normalization($sale);
             $norm->normalize();
+            // if($norm->normalization_status == true)
+                return redirect()->back()->with('message', 'Sale normalized successfully');
         }
+        return redirect()->back()->with('message', 'Sale normalized failed');
     }
 
     public function sendMail(Request $request)

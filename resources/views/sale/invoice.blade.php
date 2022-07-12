@@ -223,7 +223,7 @@
                         <td style="text-align:right"><span style="font-weight: bold">{{$lims_sale_data->nim_code}}</span></td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align:left">{{trans('file.MECeF counters')}}</td>
+                        <td colspan="2" style="text-align:left">{{trans('file.MECeF Counters')}}</td>
                         <td style="text-align:right"><span style="font-weight: bold">{{$lims_sale_data->normalization_counters}}</span></td>
                     </tr>
                     <tr>
