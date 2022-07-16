@@ -123,28 +123,22 @@ class Normalization
         return $this->sale->reference_no;
     }
 
-    /*
-    l'information taxgroup est elle static?
-    gerer les moyens de payements
-
-    */
-
     public function getPaymentName(string $name)
     {
-        $api_name = '';
-        switch ($name) {
-            case 'Cheque':
-                $api_name = 'CHEQUES';
-                break;
-            case 'Credit Card':
-                $api_name = 'CREDIT';
-                break;
+        $name = 'ESPECES';
+        // switch ($name) {
+        //     case 'Cheque':
+        //         $name = 'CHEQUES';
+        //         break;
+        //     case 'Credit Card':
+        //         $name = 'CREDIT';
+        //         break;
 
-            default:
-                $api_name = 'AUTRE';
-                break;
-        }
-        return $api_name;
+        //     default:
+        //         $name = 'AUTRE';
+        //         break;
+        // }
+        return $name;
     }
 
 

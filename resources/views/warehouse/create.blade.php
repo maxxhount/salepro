@@ -107,6 +107,10 @@
             <textarea required class="form-control" rows="3" name="address"></textarea>
           </div>
           <div class="form-group">
+            <label>{{trans('file.Activity')}} *</label>
+            <textarea required class="form-control" rows="3" name="activity"></textarea>
+          </div>
+          <div class="form-group">
             <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
           </div>
       </div>
@@ -141,6 +145,10 @@
           <div class="form-group">
             <label>{{trans('file.Address')}} *</label>
             <textarea class="form-control" rows="3" name="address" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>{{trans('file.Activity')}} *</label>
+            <textarea required class="form-control" rows="3" name="activity" required></textarea>
           </div>
           <div class="form-group">
             <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
@@ -221,6 +229,7 @@
 	            $("#editModal input[name='phone']").val(data['phone']);
 	            $("#editModal input[name='email']").val(data['email']);
 	            $("#editModal textarea[name='address']").val(data['address']);
+	            $("#editModal textarea[name='activity']").val(data['activity']);
 	            $("#editModal input[name='warehouse_id']").val(data['id']);
 
 	        });

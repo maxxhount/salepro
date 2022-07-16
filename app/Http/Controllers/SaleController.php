@@ -276,7 +276,7 @@ class SaleController extends Controller
                                 </li>';
 
                 if($sale->normalization_status == false)
-                    $nestedData['options'] .= '<li><a href="'.route('sale.normalize', $sale->id).'" class="btn btn-link"><i class="fa fa-copy"></i> '.trans('file.Normalize').'</a></li>';
+                    $nestedData['options'] .= '<li><a href="'.route('sale.normalize', $sale->id).'" class="btn btn-link"><i class="fa fa-file-text-o"></i> '.trans('file.Normalize').'</a></li>';
 
                 if(in_array("sales-edit", $request['all_permission'])){
                     if($sale->sale_status != 3)
@@ -776,8 +776,8 @@ class SaleController extends Controller
         if($sale){
             $norm = new Normalization($sale);
             $norm->normalize();
-            // if($norm->normalization_status == true)
-                return redirect()->back()->with('message', 'Sale normalized successfully');
+            if($sale->normalization_status == true)
+                return redirect()->route('sale.invoice', $sale->id)->with('message', 'Sale normalized successfully');
         }
         return redirect()->back()->with('message', 'Sale normalized failed');
     }

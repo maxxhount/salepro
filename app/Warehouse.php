@@ -8,12 +8,12 @@ class Warehouse extends Model
 {
     protected $fillable =[
 
-        "name", "phone", "email", "address", "is_active"
+        "name", "phone", "email", "address", "is_active", 'activity',
     ];
 
     public function product()
     {
     	return $this->hasMany('App\Product');
-    	
+
     }
 }

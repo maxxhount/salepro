@@ -61,7 +61,7 @@ class SettingController extends Controller
         $data = $request->except('site_logo');
         //return $data;
         //writting timezone info in .env file
-        $path = '.env';
+        $path = base_path().'/.env';
         $searchArray = array('APP_TIMEZONE='.env('APP_TIMEZONE'));
         $replaceArray = array('APP_TIMEZONE='.$data['timezone']);
 

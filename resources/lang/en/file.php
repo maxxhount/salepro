@@ -643,5 +643,6 @@ return [
     "MECeF Counters" => "MECeF Counters",
     "MECeF NIM" => "MECeF NIM",
     "MECeF Hour" => "MECeF Hour",
+    "Activity" => "Activity",
 ];
 ?>

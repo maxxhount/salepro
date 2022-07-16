@@ -108,7 +108,7 @@
                         <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                     </div>
                     <div class="col-md-12">
-                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{trans('file.Bill')}}</h3>
                     </div>
                     <div class="col-md-12 text-center">
                         <i style="font-size: 15px;">{{trans('file.Sale Details')}}</i>
@@ -122,7 +122,7 @@
                 <thead>
                     <th>#</th>
                     <th>{{trans('file.product')}}</th>
-                    <th>{{trans('file.Batch No')}}</th>
+                    {{-- <th>{{trans('file.Batch No')}}</th> --}}
                     <th>{{trans('file.Qty')}}</th>
                     <th>{{trans('file.Unit')}}</th>
                     <th>{{trans('file.Unit Price')}}</th>
@@ -942,7 +942,7 @@
     function saleDetails(sale){
         $("#sale-details input[name='sale_id']").val(sale[13]);
 
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+sale[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+sale[3]+'<br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+sale[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
         $.get('sales/product_sale/' + sale[13], function(data){
             $(".product-sale-list tbody").remove();
             var name_code = data[0];
@@ -959,7 +959,7 @@
                 var cols = '';
                 cols += '<td><strong>' + (index+1) + '</strong></td>';
                 cols += '<td>' + name_code[index] + '</td>';
-                cols += '<td>' + batch_no[index] + '</td>';
+                // cols += '<td>' + batch_no[index] + '</td>';
                 cols += '<td>' + qty[index] + '</td>';
                 cols += '<td>' + unit_code[index] + '</td>';
                 cols += '<td>' + parseFloat(subtotal[index] / qty[index]).toFixed(2) + '</td>';
@@ -972,7 +972,7 @@
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=6><strong>{{trans("file.Total")}}:</strong></td>';
+            cols += '<td colspan=5><strong>{{trans("file.Total")}}:</strong></td>';
             cols += '<td>' + sale[14] + '</td>';
             cols += '<td>' + sale[15] + '</td>';
             cols += '<td>' + sale[16] + '</td>';
@@ -981,21 +981,21 @@
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=8><strong>{{trans("file.Order Tax")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.Order Tax")}}:</strong></td>';
             cols += '<td>' + sale[17] + '(' + sale[18] + '%)' + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=8><strong>{{trans("file.Order Discount")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.Order Discount")}}:</strong></td>';
             cols += '<td>' + sale[19] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
             if(sale[28]) {
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=8><strong>{{trans("file.Coupon Discount")}} ['+sale[28]+']:</strong></td>';
+                cols += '<td colspan=7><strong>{{trans("file.Coupon Discount")}} ['+sale[28]+']:</strong></td>';
                 cols += '<td>' + sale[29] + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
@@ -1003,28 +1003,28 @@
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=8><strong>{{trans("file.Shipping Cost")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.Shipping Cost")}}:</strong></td>';
             cols += '<td>' + sale[20] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=8><strong>{{trans("file.grand total")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.grand total")}}:</strong></td>';
             cols += '<td>' + sale[21] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=8><strong>{{trans("file.Paid Amount")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.Paid Amount")}}:</strong></td>';
             cols += '<td>' + sale[22] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=8><strong>{{trans("file.Due")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.Due")}}:</strong></td>';
             cols += '<td>' + parseFloat(sale[21] - sale[22]).toFixed(2) + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
