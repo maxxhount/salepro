@@ -51,7 +51,7 @@ class Normalization
     {
             return [
                 "ifu" => $this->getIfu(),
-                "aib" => "A",
+                // "aib" => "A",
                 "type" => "FV",
                 "items" => $this->getItems(),
                 "client" => $this->getClient(),
@@ -73,9 +73,9 @@ class Normalization
                 "quantity" => $item->qty,
                 #  need more explanation
                 "taxGroup" => "e",
-                "taxSpecific" => $item->tax_rate,
-                "originalPrice" => $item->net_unit_price,
-                "priceModification" => ""
+                // "taxSpecific" => $item->tax_rate,
+                // "originalPrice" => $item->net_unit_price,
+                // "priceModification" => ""
             ];
         });
     }

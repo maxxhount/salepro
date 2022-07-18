@@ -151,6 +151,7 @@ class SaleController extends Controller
         {
             $search = $request->input('search.value');
             if(Auth::user()->role_id > 2 && config('staff_access') == 'own') {
+
                 $sales =  Sale::select('sales.*')
                             ->with('biller', 'customer', 'warehouse', 'user')
                             ->join('customers', 'sales.customer_id', '=', 'customers.id')

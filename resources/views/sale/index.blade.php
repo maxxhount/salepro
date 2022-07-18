@@ -445,6 +445,7 @@
     $('#view-payment').modal('hide');
 
     $(document).on("click", "tr.sale-link td:not(:first-child, :last-child)", function() {
+        // console.log("debug", $(this).parent());
         var sale = $(this).parent().data('sale');
         saleDetails(sale);
     });
@@ -1031,6 +1032,7 @@
 
             $("table.product-sale-list").append(newBody);
         });
+        // console.log(sale)
         var htmlfooter = '<p><strong>{{trans("file.Sale Note")}}:</strong> '+sale[23]+'</p><p><strong>{{trans("file.Staff Note")}}:</strong> '+sale[24]+'</p><strong>{{trans("file.Created By")}}:</strong><br>'+sale[25]+'<br>'+sale[26];
         $('#sale-content').html(htmltext);
         $('#sale-footer').html(htmlfooter);
