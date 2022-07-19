@@ -1032,8 +1032,10 @@
 
             $("table.product-sale-list").append(newBody);
         });
-        // console.log(sale)
-        var htmlfooter = '<p><strong>{{trans("file.Sale Note")}}:</strong> '+sale[23]+'</p><p><strong>{{trans("file.Staff Note")}}:</strong> '+sale[24]+'</p><strong>{{trans("file.Created By")}}:</strong><br>'+sale[25]+'<br>'+sale[26];
+        var htmlfooter = '';
+        // var htmlfooter = '<p><strong>{{trans("file.Sale Note")}}:</strong> '+sale[23]+'</p><p><strong>{{trans("file.Staff Note")}}:</strong> '+sale[24]+'</p><strong>{{trans("file.Created By")}}:</strong><br>'+sale[25]+'<br>'+sale[26];
+        if(sale[30]==true)
+            htmlfooter = '<div class="row"><div class="col-md-4 text-center"><img style="width:80px; margin-top:5px;" src="data:image/png;base64,'+sale[35]+'" alt="barcode"/></div><div class="col-md-8"><strong>{{trans("file.Code MECeF")}}:</strong> '+sale[32]+'<br><strong>{{trans("file.MECeF NIM")}}:</strong> '+sale[31]+'<br><strong>{{trans("file.MECeF Counters")}}:</strong> '+sale[33]+'<br><strong>{{trans("file.MECeF Hour")}}:</strong>'+sale[34]+'</div></div>';
         $('#sale-content').html(htmltext);
         $('#sale-footer').html(htmlfooter);
         $('#sale-details').modal('show');
