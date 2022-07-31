@@ -1,6 +1,6 @@
 chmod -R 775 public
 chmod -R 775 storage
-#php artisan storage:link
+php artisan storage:link
 php artisan migrate --force
 php artisan package:discover --ansi
 php artisan db:seed --force
