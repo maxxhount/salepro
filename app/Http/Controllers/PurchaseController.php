@@ -62,13 +62,13 @@ class PurchaseController extends Controller
 
     public function purchaseData(Request $request)
     {
-        $columns = array( 
-            1 => 'created_at', 
+        $columns = array(
+            1 => 'created_at',
             2 => 'reference_no',
             5 => 'grand_total',
             6 => 'paid_amount',
         );
-        
+
         $warehouse_id = $request->input('warehouse_id');
         if(Auth::user()->role_id > 2 && config('staff_access') == 'own')
             $totalData = Purchase::where('user_id', Auth::id())
@@ -224,7 +224,7 @@ class PurchaseController extends Controller
                     $nestedData['options'] .= '<li>
                         <a href="'.route('purchases.edit', $purchase->id).'" class="btn btn-link"><i class="dripicons-document-edit"></i> '.trans('file.edit').'</a>
                         </li>';
-                $nestedData['options'] .= 
+                $nestedData['options'] .=
                     '<li>
                         <button type="button" class="add-payment btn btn-link" data-id = "'.$purchase->id.'" data-toggle="modal" data-target="#add-payment"><i class="fa fa-plus"></i> '.trans('file.Add Payment').'</button>
                     </li>
@@ -234,7 +234,7 @@ class PurchaseController extends Controller
                 if(in_array("purchases-delete", $request['all_permission']))
                     $nestedData['options'] .= \Form::open(["route" => ["purchases.destroy", $purchase->id], "method" => "DELETE"] ).'
                             <li>
-                              <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> '.trans("file.delete").'</button> 
+                              <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> '.trans("file.delete").'</button>
                             </li>'.\Form::close().'
                         </ul>
                     </div>';
@@ -248,12 +248,12 @@ class PurchaseController extends Controller
             }
         }
         $json_data = array(
-            "draw"            => intval($request->input('draw')),  
-            "recordsTotal"    => intval($totalData),  
-            "recordsFiltered" => intval($totalFiltered), 
-            "data"            => $data   
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
         );
-            
+
         echo json_encode($json_data);
     }
 
@@ -311,7 +311,7 @@ class PurchaseController extends Controller
         else
             $product[] = $lims_product_data->code;
         $product[] = $lims_product_data->cost;
-        
+
         if ($lims_product_data->tax_id) {
             $lims_tax_data = Tax::find($lims_product_data->tax_id);
             $product[] = $lims_tax_data->rate;
@@ -339,7 +339,7 @@ class PurchaseController extends Controller
                 $unit_operation_value[] = $unit->operation_value;
             }
         }
-        
+
         $product[] = implode(",", $unit_name) . ',';
         $product[] = implode(",", $unit_operator) . ',';
         $product[] = implode(",", $unit_operation_value) . ',';
@@ -422,7 +422,7 @@ class PurchaseController extends Controller
                                             'batch_no' => $batch_no[$i],
                                             'expired_date' => $expired_date[$i],
                                             'qty' => $quantity
-                                        ]);   
+                                        ]);
                 }
                 $product_purchase['product_batch_id'] = $product_batch_data->id;
             }
@@ -463,7 +463,7 @@ class PurchaseController extends Controller
             //add quantity to warehouse
             if ($lims_product_warehouse_data) {
                 $lims_product_warehouse_data->qty = $lims_product_warehouse_data->qty + $quantity;
-            } 
+            }
             else {
                 $lims_product_warehouse_data = new Product_Warehouse();
                 $lims_product_warehouse_data->product_id = $id;
@@ -605,7 +605,7 @@ class PurchaseController extends Controller
         $data['user_id'] = Auth::id();
         Purchase::create($data);
         $lims_purchase_data = Purchase::latest()->first();
-        
+
         foreach ($product_data as $key => $product) {
             if($product['tax_method'] == 1){
                 $net_unit_cost = $cost[$key] - $discount[$key];
@@ -640,7 +640,7 @@ class PurchaseController extends Controller
                 }
                 $product->save();
             }
-            
+
             $product_purchase = new ProductPurchase();
             $product_purchase->purchase_id = $lims_purchase_data->id;
             $product_purchase->product_id = $product['id'];
@@ -684,7 +684,7 @@ class PurchaseController extends Controller
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
-        
+
     }
 
     public function update(Request $request, $id)
@@ -737,7 +737,7 @@ class PurchaseController extends Controller
 
             $old_recieved_value = $product_purchase_data->recieved;
             $lims_purchase_unit_data = Unit::find($product_purchase_data->purchase_unit_id);
-            
+
             if ($lims_purchase_unit_data->operator == '*') {
                 $old_recieved_value = $old_recieved_value * $lims_purchase_unit_data->operation_value;
             } else {
@@ -818,7 +818,7 @@ class PurchaseController extends Controller
                                             'batch_no' => $batch_no[$key],
                                             'expired_date' => $expired_date[$key],
                                             'qty' => $new_recieved_value
-                                        ]);   
+                                        ]);
                 }
                 $product_purchase['product_batch_id'] = $product_batch_data->id;
             }
@@ -1062,13 +1062,13 @@ class PurchaseController extends Controller
                 PaymentWithCreditCard::create($data);
             }
             $lims_payment_data->paying_method = 'Credit Card';
-        }         
+        }
         else{
             if($lims_payment_data->paying_method == 'Cheque'){
                 $lims_payment_data->paying_method = 'Cheque';
                 $lims_payment_cheque_data = PaymentWithCheque::where('payment_id', $data['payment_id'])->first();
                 $lims_payment_cheque_data->cheque_no = $data['edit_cheque_no'];
-                $lims_payment_cheque_data->save(); 
+                $lims_payment_cheque_data->save();
             }
             else{
                 $lims_payment_data->paying_method = 'Cheque';
@@ -1149,7 +1149,7 @@ class PurchaseController extends Controller
 
                 $lims_product_data->qty -= $recieved_qty;
                 $lims_product_warehouse_data->qty -= $recieved_qty;
-                
+
                 $lims_product_warehouse_data->save();
                 $lims_product_data->save();
                 $product_purchase_data->delete();
@@ -1224,7 +1224,7 @@ class PurchaseController extends Controller
                     }
                     $lims_product_warehouse_data->imei_number = implode(",", $all_imei_numbers);
                 }
-                
+
                 $lims_product_data->qty -= $recieved_qty;
                 $lims_product_warehouse_data->qty -= $recieved_qty;
 
@@ -1253,6 +1253,6 @@ class PurchaseController extends Controller
             $lims_purchase_data->delete();
             return redirect('purchases')->with('not_permitted', 'Purchase deleted successfully');;
         }
-        
+
     }
 }

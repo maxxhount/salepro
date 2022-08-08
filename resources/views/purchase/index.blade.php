@@ -692,9 +692,8 @@
 
     function purchaseDetails(purchase){
         var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+purchase[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+purchase[1]+'<br><strong>{{trans("file.Purchase Status")}}: </strong>'+purchase[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+purchase[4]+'<br>'+purchase[5]+'<br>'+purchase[6]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+purchase[7]+'<br>'+purchase[8]+'<br>'+purchase[9]+'<br>'+purchase[10]+'<br>'+purchase[11]+'<br>'+purchase[12]+'</div></div></div>';
-
+        $(".product-purchase-list tbody").remove();
         $.get('purchases/product_purchase/' + purchase[3], function(data){
-            $(".product-purchase-list tbody").remove();
             var name_code = data[0];
             var qty = data[1];
             var unit_code = data[2];
