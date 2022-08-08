@@ -379,7 +379,7 @@ class PurchaseController extends Controller
         //return dd($data);
         Purchase::create($data);
 
-        $lims_purchase_data = Purchase::latest()->first();
+        $lims_purchase_data = Purchase::orderBy('id', 'desc')->first();
         $product_id = $data['product_id'];
         $product_code = $data['product_code'];
         $qty = $data['qty'];
