@@ -746,7 +746,7 @@
             else {
                 $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.product-batch-id').val(data['product_batch_id']);
                 code = $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.product-code').val();
-                console.log(code);
+                // console.log(code);
                 pos = product_code.indexOf(code);
                 product_qty[pos] = data['qty'];
             }
@@ -924,7 +924,7 @@
                 async: false,
                 url: '../check-discount?qty='+qty+'&customer_id='+customer_id+'&product_id='+product_id,
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     pos = product_code.indexOf($('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ') .product-code').val());
                     product_price[rowindex] = parseFloat(data[0] * currency['exchange_rate']) + parseFloat(data[0] * currency['exchange_rate'] * customer_group_rate);
                 }
@@ -1085,7 +1085,7 @@
         var shipping_cost = parseFloat($('input[name="shipping_cost"]').val());
         var order_discount_type = $('select[name="order_discount_type"]').val();
         var order_discount_value = parseFloat($('input[name="order_discount_value"]').val());
-    
+
         if (!order_discount_value)
             order_discount_value = 0.00;
 

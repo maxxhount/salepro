@@ -3,6 +3,7 @@
 /public/public
 #/storage/*.key
 /storage/logs
+/public/stock_count/
 /vendor
 .env
 .env.backup

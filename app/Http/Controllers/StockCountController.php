@@ -57,16 +57,16 @@ class StockCountController extends Controller
             $lims_product_list = DB::table('products')->join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')->where([ ['products.is_active', true], ['product_warehouse.warehouse_id', $data['warehouse_id']] ])->select('products.name', 'products.code', 'product_warehouse.imei_number', 'product_warehouse.qty')->get();
         }
         if( count($lims_product_list) ){
-            $csvData=array('Product Name, Product Code, IMEI or Serial Numbers, Expected, Counted');
+            $csvData=array('Product Name; Product Code; Expected; Counted'); /* IMEI or Serial Numbers;  */
             foreach ($lims_product_list as $product) {
-                $csvData[]=$product->name.','.$product->code.','.str_replace(",","/",$product->imei_number).','.$product->qty.','.'';
+                $csvData[]=$product->name.";".$product->code.';'/* .str_replace(",","/",$product->imei_number).';' */.$product->qty.';'.'';
             }
             //return $csvData;
             $filename= date('Ymd').'-'.date('his'). ".csv";
             $file_path= public_path().'/stock_count/'.$filename;
             $file = fopen($file_path, "w+");
             foreach ($csvData as $cellData){
-              fputcsv($file, explode(',', $cellData));
+              fputcsv($file, explode(';', $cellData), ";");
             }
             fclose($file);
 
@@ -112,7 +112,7 @@ class StockCountController extends Controller
                 $product[] = $current_line[0].' ['.$current_line[1].']';
                 $expected[] = $current_line[2];
                 $product_data = Product::where('code', $current_line[1])->first();
-                
+
                 if($current_line[3]){
                     $difference[] = $temp_dif = $current_line[3] - $current_line[2];
                     $counted[] = $current_line[3];
@@ -163,7 +163,7 @@ class StockCountController extends Controller
 
                 if($temp_qty < 0){
                     $qty[] = $temp_qty * (-1);
-                    $action[] = '-';  
+                    $action[] = '-';
                 }
                 else{
                     $qty[] = $temp_qty;
