@@ -73,7 +73,7 @@
                                                 		</select>
                                                 	</td>
                                                 	<td><button type="button" class="ibtnDel btn btn-md btn-danger">{{trans("file.delete")}}</button>
-                                                	<input type="hidden" class="product-code" value="{{$code[$key]}}" />
+                                                	<input type="hidden" class="product-code" name="product_code" value="{{$code[$key]}}" />
                                                 	<input type="hidden" class="product-id" name="product_id[]" value="{{$product_id[$key]}}" />
                                                 	</td>
                                                 	@endforeach
