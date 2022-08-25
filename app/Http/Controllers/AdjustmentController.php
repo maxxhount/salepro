@@ -37,7 +37,7 @@ class AdjustmentController extends Controller
                                     ->join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')
                                     ->whereNull('products.is_variant')
                                     ->where([
-                                        ['products.is_active', true], 
+                                        ['products.is_active', true],
                                         ['product_warehouse.warehouse_id', $id]
                                     ])
                                     ->select('product_warehouse.qty', 'products.code', 'products.name')
@@ -46,7 +46,7 @@ class AdjustmentController extends Controller
                                     ->join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')
                                     ->whereNotNull('products.is_variant')
                                     ->where([
-                                        ['products.is_active', true], 
+                                        ['products.is_active', true],
                                         ['product_warehouse.warehouse_id', $id]
                                     ])
                                     ->select('products.name', 'product_warehouse.qty', 'product_warehouse.product_id', 'product_warehouse.variant_id')
@@ -55,14 +55,14 @@ class AdjustmentController extends Controller
         $product_name = [];
         $product_qty = [];
         $product_data = [];
-        foreach ($lims_product_warehouse_data as $product_warehouse) 
+        foreach ($lims_product_warehouse_data as $product_warehouse)
         {
             $product_qty[] = $product_warehouse->qty;
             $product_code[] =  $product_warehouse->code;
             $product_name[] = $product_warehouse->name;
         }
 
-        foreach ($lims_product_withVariant_warehouse_data as $product_warehouse) 
+        foreach ($lims_product_withVariant_warehouse_data as $product_warehouse)
         {
             $product_variant = ProductVariant::select('item_code')->FindExactProduct($product_warehouse->product_id, $product_warehouse->variant_id)->first();
             $product_qty[] = $product_warehouse->qty;

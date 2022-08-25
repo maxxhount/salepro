@@ -107,7 +107,7 @@ class StockCountController extends Controller
         $data = [];
         $product = [];
         while( !feof($file_handle) ) {
-            $current_line = fgetcsv($file_handle);
+            $current_line = fgetcsv($file_handle, 0,";");
             if( $current_line && $i > 0 && ($current_line[2] != $current_line[3]) ){
                 $product[] = $current_line[0].' ['.$current_line[1].']';
                 $expected[] = $current_line[2];
@@ -149,7 +149,7 @@ class StockCountController extends Controller
         $i = 0;
         $product_id = [];
         while( !feof($file_handle) ) {
-            $current_line = fgetcsv($file_handle);
+            $current_line = fgetcsv($file_handle, 0, ";");
             if( $current_line && $i > 0 && ($current_line[2] != $current_line[3]) ){
                 $product_data = Product::where('code', $current_line[1])->first();
                 $product_id[] = $product_data->id;
